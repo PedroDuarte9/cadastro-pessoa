@@ -9,23 +9,26 @@ import java.util.Objects;
 @Table(name = "tb_pessoa")
 public class Pessoa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Para dizer que o valor de id é gerado pelo banco
     private Long id;
     private String nome;
 
     private String cpf;
-
+    @Transient
     private List<Endereco> listaDeEnderecos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String cpf, List<Endereco> listaDeEnderecos) {
+    public Pessoa(Long id, String nome, String cpf) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.listaDeEnderecos = listaDeEnderecos;
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getNome() {
         return nome;
     }

@@ -11,18 +11,25 @@ public class DAO <E>{
 
     private Class <E> entidade;
 
-
-
     static {
         try {
             emf = Persistence.createEntityManagerFactory("chave-conexao");
         }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Problema aqui " + e.getMessage());
         }
      }
     public DAO(Class<E> entidade) {
         this.entidade = entidade;
         em = emf.createEntityManager();
     }
+//    public DAO<E> abrir(){
+//        em.getTransaction().begin();
+//        return this;
+//    }
+//
+//    public DAO<E> fechar(){
+//        em.getTransaction().commit();
+//        return this;
+//    }
 }
 
