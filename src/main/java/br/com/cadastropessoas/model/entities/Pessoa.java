@@ -1,13 +1,14 @@
 package br.com.cadastropessoas.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_pessoa")
-public class Pessoa {
+public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,15 +16,13 @@ public class Pessoa {
 
     private String cpf;
 
-    private List<Endereco> listaDeEnderecos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String cpf, List<Endereco> listaDeEnderecos) {
+    public Pessoa(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
-        this.listaDeEnderecos = listaDeEnderecos;
     }
 
     public String getNome() {
@@ -38,8 +37,8 @@ public class Pessoa {
         return cpf;
     }
 
-    public List<Endereco> getListaDeEnderecos() {
-        return listaDeEnderecos;
+    public void setCpf(String cpf){
+        this.cpf = cpf;
     }
 
     @Override
