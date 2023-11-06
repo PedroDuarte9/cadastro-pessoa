@@ -1,29 +1,34 @@
 package br.com.cadastropessoas.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_pessoa")
-public class Pessoa {
+public class Pessoa implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Para dizer que o valor de id é gerado pelo banco
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Para dizer que o valor de id é gerado pelo banco
+    @Column(name = "pessoa_id")
     private Long id;
+    @Column(name = "pessoa_nome")
     private String nome;
-
+    @Column(name = "pessoa_cpf")
     private String cpf;
-    @Transient
+    @OneToMany(mappedBy = "pessoa")
     private List<Endereco> listaDeEnderecos = new ArrayList<>();
 
     public Pessoa() {
+        super();
     }
 
-    public Pessoa(Long id, String nome, String cpf) {
+    public Pessoa(Long id, String nome, String cpf, Endereco listaDeEnderecos) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        setListaDeEnderecos(getListaDeEnderecos());
     }
 
     public Long getId() {
@@ -43,6 +48,10 @@ public class Pessoa {
 
     public List<Endereco> getListaDeEnderecos() {
         return listaDeEnderecos;
+    }
+
+    public void setListaDeEnderecos(List<Endereco> listaDeEnderecos) {
+        this.listaDeEnderecos = listaDeEnderecos;
     }
 
     @Override

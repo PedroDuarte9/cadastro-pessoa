@@ -1,19 +1,29 @@
 package br.com.cadastropessoas.model.entities;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
-
-public class Endereco {
+@Entity
+@Table(name = "tb_endereco")
+public class Endereco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "endereco_id")
     private Long id;
+    @Column(name = "endereco_rua")
     private String rua;
+    @Column(name = "endereco_numero")
     private String numero;
+    @Column(name = "endereco_complemento")
     private String complemento;
+    @Column(name = "endereco_bairro")
     private String bairro;
+    @Column(name = "endereco_cep")
     private String cep;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 
     public Endereco() {
     }
